@@ -3,8 +3,16 @@ const { getStore } = require('@netlify/blobs');
 // Change this to whatever password your team wants to use.
 const EDIT_PASSWORD = 'Arcnickftc2026';
 
+function getEventsStore() {
+  return getStore({
+    name: 'arcnick-events',
+    siteID: process.env.NETLIFY_SITE_ID,
+    token: process.env.NETLIFY_API_TOKEN,
+  });
+}
+
 exports.handler = async (event) => {
-  const store = getStore('arcnick-events');
+  const store = getEventsStore();
 
   if (event.httpMethod === 'GET') {
     const events = (await store.get('list', { type: 'json' })) || [];
