@@ -1,0 +1,689 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTC Team 35849 | ARCNICK</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Rajdhani:wght@500;700&amp;display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #050508;
+            --card-bg: #0d0f14;
+            --primary: #00f3ff;
+            --primary-glow: rgba(0, 243, 255, 0.4);
+            --accent: #9d00ff;
+            --text-main: #ffffff;
+            --text-muted: #8f9cae;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 8, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+            z-index: 1000;
+        }
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+        .logo span {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+            text-shadow: 0 0 8px var(--primary-glow);
+        }
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+        }
+        .hero-badge {
+            font-family: var(--font-display);
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.4rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        h1 .badge-num {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--primary);
+            filter: drop-shadow(0 0 10px var(--primary-glow));
+        }
+        /* ARCNICK dynamic scramble/decode effect */
+        #scramble-word {
+            display: inline-block;
+        }
+        #scramble-word .scramble-char {
+            color: var(--primary);
+            opacity: 0.85;
+            text-shadow: 0 0 8px var(--primary-glow);
+        }
+        #scramble-word .arc-letters {
+            color: var(--text-main);
+        }
+        #scramble-word .nick-letters {
+            color: var(--text-main);
+            transition: color 1.4s ease, text-shadow 1.4s ease;
+        }
+        #scramble-word .nick-letters.cyan-active {
+            color: var(--primary);
+            text-shadow: 0 0 12px var(--primary-glow), 0 0 26px var(--primary-glow);
+        }
+        .motto {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+        }
+        .motto span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .btn {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 2px;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary-glow);
+            transform: translateY(-3px);
+        }
+        /* Sections Grid Layout */
+        section {
+            padding: 8rem 10% 4rem 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+        /* Cards and Layout Components */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 243, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .card:hover::before {
+            height: 100%;
+        }
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        /* Showroom (Robot Highlights) */
+        .showroom-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .robot-visual {
+            background: linear-gradient(135deg, rgba(13, 15, 20, 0.8), rgba(5, 5, 8, 0.9));
+            border: 2px dashed rgba(0, 243, 255, 0.3);
+            border-radius: 8px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            position: relative;
+        }
+        .robot-visual i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            animation: float 4s ease-in-out infinite;
+        }
+        /* Contact & Sponsorship Form */
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background: rgba(5, 5, 8, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+        /* Updates: YouTube + Events */
+        .event-row {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            padding: 1rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        .event-row span {
+            color: var(--text-main);
+        }
+        .event-remove-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+        .event-remove-btn:hover {
+            color: var(--primary);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--bg-color);
+        }
+        /* Footer pixel bar styling */
+        footer {
+            background: #090b0e;
+            padding: 3rem 10%;
+            border-top: 4px solid var(--primary);
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+        /* Animations */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 243, 255, 0.5); }
+            100% { box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); }
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        /* Responsive Settings */
+        @media (max-width: 900px) {
+            h1 { font-size: 3.5rem; }
+            .nav-links { display: none; }
+            .showroom-container { grid-template-columns: 1fr; gap: 2rem; }
+            section { padding: 6rem 5% 2rem 5%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav>
+        <a href="#" class="logo">ARCNICK <span>35849</span></a>
+        <ul class="nav-links">
+            <li><a href="#home" class="">Home</a></li>
+            <li><a href="#about" class="">About</a></li>
+            <li><a href="#robot" class="active">The Machine</a></li>
+            <li><a href="#updates" class="">Updates</a></li>
+            <li><a href="#sponsor" class="">Sponsor Us</a></li>
+        </ul>
+    </nav>
+    <!-- Hero Showcase Section -->
+    <header id="home">
+        <div class="hero-badge">FIRST Tech Challenge Team</div>
+        <h1><span id="scramble-word"></span> <span class="badge-num">35849</span></h1>
+        <p class="motto"><span>NO LIMITS.</span></p>
+        <a href="#about" class="btn btn-primary">Explore Our Mission</a>
+    </header>
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">Who We Are</h2>
+        <div class="grid-3">
+            <div class="card">
+                <i class="fa-solid fa-microchip"></i>
+                <h3>Engineering Excellence</h3>
+                <p>We push structural optimization boundaries with rapid custom CAD modeling, precision mechanisms, and rigorous automated sensor integration profiles.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-code"></i>
+                <h3>Autonomous Strategy</h3>
+                <p>Powered by advanced computer vision pipeline paths, odometry localization matrices, and smart real-time driver control-assist macros.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-users"></i>
+                <h3>Community Impact</h3>
+                <p>Spreading passion for STEM across local school circuits, mentoring future robotics generations, and demonstrating engineering accessibility.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Robot Showroom Grid -->
+    <section id="robot">
+        <h2 class="section-title">The Machine</h2>
+        <div class="showroom-container">
+            <div>
+                <p style="color: var(--primary); font-family: var(--font-display); letter-spacing: 2px; margin-bottom: 0.5rem; text-transform: uppercase;">Current Season Strategy</p>
+                <h3 style="font-family: var(--font-display); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 1.5rem;">System Specifications</h3>
+                <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1.5rem;">Our robot uses an agile mecanum drivetrain optimized for high-speed tracking across the field. Key modules include high-torque intake systems and custom gear assemblies built for structural integrity during heavy game cycles.</p>
+                <ul style="list-style: none; color: var(--text-main); font-family: var(--font-display); font-size: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                    <li><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 10px;"></i> 4x Mecanum Drive Wheels</li>
+                    <li><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 10px;"></i> Custom 3D Printed Intake Subsystems</li>
+                    <li><i class="fa-solid fa-check" style="color: var(--primary); margin-right: 10px;"></i> Dual-Camera CV Target Pipeline</li>
+                </ul>
+            </div>
+            <div class="robot-visual">
+                <i class="fa-solid fa-robot"></i>
+                <p style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">[ Robot Media / Gallery Blueprint ]</p>
+                <p style="font-size: 0.9rem; color: rgba(255,255,255,0.3); margin-top: 5px;">Replace this box with an image of your robot</p>
+            </div>
+        </div>
+    </section>
+    <!-- Updates: YouTube + Events -->
+    <section id="updates">
+        <h2 class="section-title">Updates</h2>
+        <div class="showroom-container">
+            <div>
+                <p style="color: var(--primary); font-family: var(--font-display); letter-spacing: 2px; margin-bottom: 0.5rem; text-transform: uppercase;">Watch Us</p>
+                <h3 style="font-family: var(--font-display); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 1.5rem;">YouTube Channel</h3>
+                <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 1.5rem;">Match footage, build updates, and behind-the-scenes content in the workshop.</p>
+                <a href="https://www.youtube.com/@ArcnickFTC" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-brands fa-youtube" style="margin-right: 8px;"></i>Visit Our Channel</a>
+            </div>
+            <div>
+                <p style="color: var(--primary); font-family: var(--font-display); letter-spacing: 2px; margin-bottom: 0.5rem; text-transform: uppercase;">What's Next</p>
+                <h3 style="font-family: var(--font-display); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 1.5rem;">Upcoming Events</h3>
+                <div id="events-list" style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;"></div>
+                <div id="event-admin" style="display: none; margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label for="event-input">Add Event</label>
+                        <input type="text" id="event-input" placeholder="e.g. Nov 8 — Qualifier at Central High">
+                    </div>
+                    <button type="button" id="add-event-btn" class="btn btn-primary" style="width: 100%; border: none;">Add Event</button>
+                </div>
+                <button type="button" id="toggle-edit-btn" class="btn btn-outline" style="width: 100%;">Team Login</button>
+            </div>
+        </div>
+    </section>
+    <!-- Sponsor Contact Section -->
+    <section id="sponsor">
+        <h2 class="section-title">Join The Mission</h2>
+        <div class="contact-container">
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Message simulation successful! Your server framework will process this action.');">
+                <div class="form-group">
+                    <label for="name">Name / Company</label>
+                    <input type="text" id="name" required="" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required="" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="message">Sponsorship or Joining Inquiry</label>
+                    <textarea id="message" rows="5" required="" placeholder="How would you like to partner with ARCNICK 35849?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; border: none;">Submit Message</button>
+            </form>
+        </div>
+    </section>
+    <!-- Pixel Footbar -->
+    <footer>
+        <p>© 2026 FTC TEAM 35849 ARCNICK. NO LIMITS.</p>
+    </footer>
+    <!-- ARCNICK Scramble/Decode Intro Effect -->
+    <script>
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#01ARCNICK$%&';
+                this.update = this.update.bind(this);
+            }
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 30);
+                    const end = start + Math.floor(Math.random() * 30) + 10;
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.3) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span class="scramble-char">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const el = document.getElementById('scramble-word');
+            const fx = new TextScramble(el);
+            fx.setText('ARCNICK').then(() => {
+                // Split into ARC / NICK so we can fade just NICK into cyan
+                el.innerHTML = '<span class="arc-letters">ARC</span><span class="nick-letters">NICK</span>';
+                requestAnimationFrame(() => {
+                    el.querySelector('.nick-letters').classList.add('cyan-active');
+                });
+            });
+        });
+    </script>
+    <!-- Interactive Navigation Handler Logic -->
+    <script>
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section, header');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+    <!-- Events Board Logic (Team Login + shared server-side storage) -->
+    <script>
+        (function () {
+            const eventsList = document.getElementById('events-list');
+            const eventAdmin = document.getElementById('event-admin');
+            const toggleBtn = document.getElementById('toggle-edit-btn');
+            const addBtn = document.getElementById('add-event-btn');
+            const input = document.getElementById('event-input');
+
+            let isEditor = sessionStorage.getItem('arcnick-editor') === 'true';
+            // Kept only so a logged-in editor's browser doesn't need to re-prompt every action;
+            // the real check happens on the server in netlify/functions/events.js.
+            let editorPassword = sessionStorage.getItem('arcnick-editor-pw') || '';
+
+            async function fetchEvents() {
+                const res = await fetch('/.netlify/functions/events');
+                if (!res.ok) return [];
+                return res.json();
+            }
+
+            function renderList(events) {
+                eventsList.innerHTML = '';
+                if (events.length === 0) {
+                    eventsList.innerHTML = '<p style="color: var(--text-muted);">No events posted yet.</p>';
+                    return;
+                }
+                events.forEach((ev, i) => {
+                    const row = document.createElement('div');
+                    row.className = 'event-row';
+                    const span = document.createElement('span');
+                    span.textContent = ev;
+                    row.appendChild(span);
+                    if (isEditor) {
+                        const del = document.createElement('button');
+                        del.className = 'event-remove-btn';
+                        del.type = 'button';
+                        del.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                        del.addEventListener('click', async () => {
+                            const res = await fetch('/.netlify/functions/events', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ password: editorPassword, action: 'remove', index: i }),
+                            });
+                            if (res.ok) {
+                                renderList(await res.json());
+                            } else {
+                                alert('Could not remove event. Try logging in again.');
+                            }
+                        });
+                        row.appendChild(del);
+                    }
+                    eventsList.appendChild(row);
+                });
+            }
+
+            async function renderEvents() {
+                renderList(await fetchEvents());
+            }
+
+            function updateEditorUI() {
+                eventAdmin.style.display = isEditor ? 'block' : 'none';
+                toggleBtn.textContent = isEditor ? 'Log Out' : 'Team Login';
+                renderEvents();
+            }
+            toggleBtn.addEventListener('click', () => {
+                if (isEditor) {
+                    isEditor = false;
+                    editorPassword = '';
+                    sessionStorage.removeItem('arcnick-editor');
+                    sessionStorage.removeItem('arcnick-editor-pw');
+                    updateEditorUI();
+                } else {
+                    const pw = prompt('Enter team password:');
+                    if (pw === null) return;
+                    // Verify by attempting a harmless no-op-ish call: we just try loading
+                    // events as editor mode and let the first real action confirm the password.
+                    isEditor = true;
+                    editorPassword = pw;
+                    sessionStorage.setItem('arcnick-editor', 'true');
+                    sessionStorage.setItem('arcnick-editor-pw', pw);
+                    updateEditorUI();
+                }
+            });
+            addBtn.addEventListener('click', async () => {
+                const val = input.value.trim();
+                if (!val) return;
+                const res = await fetch('/.netlify/functions/events', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: editorPassword, action: 'add', value: val }),
+                });
+                if (res.ok) {
+                    input.value = '';
+                    renderList(await res.json());
+                } else {
+                    alert('Incorrect password — please log out and log back in.');
+                }
+            });
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') addBtn.click();
+            });
+
+            updateEditorUI();
+        })();
+    </script>
+</body></html>
