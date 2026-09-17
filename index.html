@@ -472,8 +472,44 @@
     <section id="sponsor">
         <h2 class="section-title">Join The Mission</h2>
         <div class="contact-container">
-            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Message simulation successful! Your server framework will process this action.');">
-                <div class="form-group">
+<form id="join-mission-form" name="join-mission" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="join-mission">
+    <p style="display:none;">
+        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+    </p>
+    <div class="form-group">
+        <label for="name">Name / Company</label>
+        <input type="text" id="name" name="name" required="" placeholder="Enter name">
+    </div>
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required="" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="message">Sponsorship or Joining Inquiry</label>
+        <textarea id="message" name="message" rows="5" required="" placeholder="How would you like to partner with ARCNICK 35849?"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" style="width: 100%; border: none;">Submit Message</button>
+</form>
+<script>
+    document.getElementById('join-mission-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const data = new FormData(form);
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(data).toString(),
+        })
+            .then(() => {
+                alert('Thanks! Your message has been sent.');
+                form.reset();
+            })
+            .catch(() => {
+                alert('Something went wrong sending your message. Please try again or email us directly.');
+            });
+    });
+</script>                <div class="form-group">
                     <label for="name">Name / Company</label>
                     <input type="text" id="name" required="" placeholder="Enter name">
                 </div>
