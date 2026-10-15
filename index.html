@@ -558,40 +558,11 @@
     </div>
     <button type="submit" class="btn btn-primary" style="width: 100%; border: none;">Submit Message</button>
 </form>
-<nav><a href="#home" class="logo">ARCNICK <span>35849</span></a><ul class="nav-links"><li><a href="#home">Home</a></li><li><a href="#about">About</a></li><li><a href="#robot">The Machine</a></li><li><a href="#history">History</a></li><li><a href="#updates">Updates</a></li><li><a href="#sponsor">Sponsor Us</a></li></ul></nav>
-<header id="home"><div class="hero-badge">FIRST Tech Challenge Team</div><h1>ARCNICK <span class="badge-num">35849</span></h1><p class="motto"><span>NO LIMITS.</span></p><a href="#about" class="btn btn-primary">Explore Our Mission</a></header>
-<section id="about"><h2 class="section-title">Who We Are</h2><div class="grid-3"><div class="card"><i class="fa-solid fa-microchip"></i><h3>Engineering Excellence</h3><p>We push structural optimization boundaries with rapid custom CAD modeling, precision mechanisms, and rigorous sensor integration.</p></div><div class="card"><i class="fa-solid fa-code"></i><h3>Autonomous Strategy</h3><p>Powered by computer vision, odometry localization, and smart real-time driver control.</p></div><div class="card"><i class="fa-solid fa-users"></i><h3>Community Impact</h3><p>Spreading passion for STEM, mentoring future robotics generations, and demonstrating engineering accessibility.</p></div></div></section>
-<section id="robot"><h2 class="section-title">The Machine</h2><div class="showroom-container"><div><p style="color:var(--primary);font-family:var(--font-display)">CURRENT SEASON STRATEGY</p><h3 style="font:2.2rem var(--font-display);margin:1rem 0">System Specifications</h3><p style="color:var(--text-muted);line-height:1.8">Our robot uses an agile mecanum drivetrain optimized for high-speed tracking across the field.</p></div><div class="robot-visual"><i class="fa-solid fa-robot"></i><p>[ Robot Media / Gallery Blueprint ]</p></div></div></section>
-<section id="history"><h2 class="section-title">Team History</h2><div class="history-timeline"><div class="history-card"><div class="history-text"><div class="history-season">2022 – 2023</div><h3 class="history-title">The Alienators</h3><p class="history-blurb">Our very first season as a team.</p></div></div><div class="history-card"><div class="history-text"><div class="history-season">2023 – 2025</div><h3 class="history-title">Potato Heads #65150</h3><p class="history-blurb">Tiny taters, mighty dreams, before evolving into ARCNICK 35849.</p></div></div></div></section>
-<section id="updates"><h2 class="section-title">Updates</h2><div class="showroom-container"><div><h3 style="font:2.2rem var(--font-display);margin-bottom:1.5rem">YouTube Channel</h3><p style="color:var(--text-muted);line-height:1.8;margin-bottom:1.5rem">Match footage, build updates, and behind-the-scenes content.</p><a href="https://www.youtube.com/@ArcnickFTC" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-brands fa-youtube"></i> Visit Our Channel</a></div><div><h3 style="font:2.2rem var(--font-display);margin-bottom:1.5rem">Upcoming Events</h3><p style="color:var(--text-muted)">No events posted yet.</p></div></div></section>
-<section id="sponsor"><h2 class="section-title">Join The Mission</h2><div class="contact-container"><form name="join-mission" method="POST" data-netlify="true"><input type="hidden" name="form-name" value="join-mission"><div class="form-group"><label for="name">Name / Company</label><input id="name" name="name" required placeholder="Enter name"></div><div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" required placeholder="Enter email"></div><div class="form-group"><label for="message">Sponsorship or Joining Inquiry</label><textarea id="message" name="message" rows="5" required></textarea></div><button class="btn btn-primary" style="width:100%;border:0">Submit Message</button></form></div></section>
-<footer><p>© 2026 FTC TEAM 35849 ARCNICK. NO LIMITS.</p></footer>
-<button id="rocket-launch" class="rocket-launch" type="button" aria-label="Blast off to the top" title="Blast off to the top"><i class="fa-solid fa-rocket" aria-hidden="true"></i><span class="rocket-label">BLAST OFF</span><span class="rocket-flame" aria-hidden="true"></span></button>
-<script>
-    document.getElementById('join-mission-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const form = e.target;
-        const data = new FormData(form);
-        fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams(data).toString(),
-        })
-            .then(() => {
-                alert('Thanks! Your message has been sent.');
-                form.reset();
-            })
-            .catch(() => {
-                alert('Something went wrong sending your message. Please try again or email us directly.');
-            });
-    });
-</script>                
 
         </div>
     </section>
     <!-- Pixel Footbar -->
     <footer>
-        <p>© 2026 FTC TEAM 35849 ARCNICK. NO LIMITS.</p>
     </footer>
     <!-- ARCNICK Scramble/Decode Intro Effect -->
     <script>
