@@ -533,14 +533,6 @@
                 <p style="color: var(--primary); font-family: var(--font-display); letter-spacing: 2px; margin-bottom: 0.5rem; text-transform: uppercase;">What's Next</p>
                 <h3 style="font-family: var(--font-display); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 1.5rem;">Upcoming Events</h3>
                 <div id="events-list" style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.5rem;"></div>
-                <div id="event-admin" style="display: none; margin-bottom: 1rem;">
-                    <div class="form-group">
-                        <label for="event-input">Add Event</label>
-                        <input type="text" id="event-input" placeholder="e.g. Nov 8 — Qualifier at Central High">
-                    </div>
-                    <button type="button" id="add-event-btn" class="btn btn-primary" style="width: 100%; border: none;">Add Event</button>
-                </div>
-                <button type="button" id="toggle-edit-btn" class="btn btn-outline" style="width: 100%;">Team Login</button>
             </div>
         </div>
     </section>
@@ -555,11 +547,12 @@
         <div class="sponsor-tile bg-blue"><img src="srp.png" alt="SRP" class="crop-bottom"></div>
     </div>
             <div class="contact-container">
-<form id="join-mission-form" name="join-mission" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-    <input type="hidden" name="form-name" value="join-mission">
-    <p style="display:none;">
-        <label>Don't fill this out if you're human: <input name="bot-field"></label>
-    </p>
+<form id="join-mission-form" action="https://formsubmit.co/arcnickftc@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="New Join The Mission message">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://arcnickftc.github.io/arcnick/#sponsor">
+    <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
     <div class="form-group">
         <label for="name">Name / Company</label>
         <input type="text" id="name" name="name" required="" placeholder="Enter name">
@@ -674,109 +667,27 @@
             });
         });
     </script>
-    <!-- Events Board Logic (Team Login + shared server-side storage) -->
+    <!-- Events Board: edit events.json in the GitHub repo to change this list -->
     <script>
-        (function () {
+        (async function () {
             const eventsList = document.getElementById('events-list');
-            const eventAdmin = document.getElementById('event-admin');
-            const toggleBtn = document.getElementById('toggle-edit-btn');
-            const addBtn = document.getElementById('add-event-btn');
-            const input = document.getElementById('event-input');
-
-            let isEditor = sessionStorage.getItem('arcnick-editor') === 'true';
-            // Kept only so a logged-in editor's browser doesn't need to re-prompt every action;
-            // the real check happens on the server in netlify/functions/events.js.
-            let editorPassword = sessionStorage.getItem('arcnick-editor-pw') || '';
-
-            async function fetchEvents() {
-                const res = await fetch('/.netlify/functions/events');
-                if (!res.ok) return [];
-                return res.json();
+            let events = [];
+            try {
+                const res = await fetch('events.json', { cache: 'no-cache' });
+                if (res.ok) events = await res.json();
+            } catch (e) {}
+            if (events.length === 0) {
+                eventsList.innerHTML = '<p style="color: var(--text-muted);">No events posted yet.</p>';
+                return;
             }
-
-            function renderList(events) {
-                eventsList.innerHTML = '';
-                if (events.length === 0) {
-                    eventsList.innerHTML = '<p style="color: var(--text-muted);">No events posted yet.</p>';
-                    return;
-                }
-                events.forEach((ev, i) => {
-                    const row = document.createElement('div');
-                    row.className = 'event-row';
-                    const span = document.createElement('span');
-                    span.textContent = ev;
-                    row.appendChild(span);
-                    if (isEditor) {
-                        const del = document.createElement('button');
-                        del.className = 'event-remove-btn';
-                        del.type = 'button';
-                        del.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-                        del.addEventListener('click', async () => {
-                            const res = await fetch('/.netlify/functions/events', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ password: editorPassword, action: 'remove', index: i }),
-                            });
-                            if (res.ok) {
-                                renderList(await res.json());
-                            } else {
-                                alert('Could not remove event. Try logging in again.');
-                            }
-                        });
-                        row.appendChild(del);
-                    }
-                    eventsList.appendChild(row);
-                });
-            }
-
-            async function renderEvents() {
-                renderList(await fetchEvents());
-            }
-
-            function updateEditorUI() {
-                eventAdmin.style.display = isEditor ? 'block' : 'none';
-                toggleBtn.textContent = isEditor ? 'Log Out' : 'Team Login';
-                renderEvents();
-            }
-            toggleBtn.addEventListener('click', () => {
-                if (isEditor) {
-                    isEditor = false;
-                    editorPassword = '';
-                    sessionStorage.removeItem('arcnick-editor');
-                    sessionStorage.removeItem('arcnick-editor-pw');
-                    updateEditorUI();
-                } else {
-                    const pw = prompt('Enter team password:');
-                    if (pw === null) return;
-                    // Verify by attempting a harmless no-op-ish call: we just try loading
-                    // events as editor mode and let the first real action confirm the password.
-                    isEditor = true;
-                    editorPassword = pw;
-                    sessionStorage.setItem('arcnick-editor', 'true');
-                    sessionStorage.setItem('arcnick-editor-pw', pw);
-                    updateEditorUI();
-                }
+            events.forEach((ev) => {
+                const row = document.createElement('div');
+                row.className = 'event-row';
+                const span = document.createElement('span');
+                span.textContent = ev;
+                row.appendChild(span);
+                eventsList.appendChild(row);
             });
-            addBtn.addEventListener('click', async () => {
-                const val = input.value.trim();
-                if (!val) return;
-                const res = await fetch('/.netlify/functions/events', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password: editorPassword, action: 'add', value: val }),
-                });
-                if (res.ok) {
-                    input.value = '';
-                    renderList(await res.json());
-                } else {
-                    alert('Incorrect password — please log out and log back in.');
-                }
-            });
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') addBtn.click();
-            });
-
-            updateEditorUI();
         })();
     </script>
 </body></html>
