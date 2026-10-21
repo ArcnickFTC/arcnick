@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Sent | ARCNICK 35849</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--bg-color:#0a0505;--card-bg:#140a0a;--primary:#ff2d5f;--primary-glow:rgba(255,45,95,.4);--text-main:#fff;--text-muted:#c9a3a3;--font-display:'Orbitron',sans-serif;--font-body:'Rajdhani',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;display:flex;flex-direction:column;background-color:var(--bg-color);color:var(--text-main);font-family:var(--font-body);font-size:1.2rem;overflow-x:hidden;background-image:linear-gradient(rgba(255,45,95,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,45,95,.03) 1px,transparent 1px);background-size:30px 30px}
+nav{padding:1.5rem 10%;border-bottom:1px solid rgba(255,45,95,.15);background:rgba(5,5,8,.85)}
+.logo{font:900 1.8rem var(--font-display);color:var(--text-main);text-decoration:none;letter-spacing:2px}
+.logo span{color:var(--primary)}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:4rem 1rem}
+.card{max-width:640px;width:100%;text-align:center;background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-top:3px solid var(--primary);border-radius:6px;padding:3.5rem 2.5rem;box-shadow:0 0 40px rgba(255,45,95,.08)}
+.icon{position:relative;display:inline-grid;place-items:center;width:5.5rem;height:5.5rem;border:1px solid var(--primary);border-radius:50%;color:var(--primary);font-size:2.2rem;margin-bottom:2rem;box-shadow:0 0 22px var(--primary-glow),inset 0 0 14px rgba(255,45,95,.15);animation:float 3s ease-in-out infinite}
+.icon i{transform:rotate(-45deg)}
+.badge{display:inline-block;font:.85rem var(--font-display);background:rgba(255,45,95,.1);border:1px solid var(--primary);color:var(--primary);padding:.4rem 1.2rem;border-radius:4px;text-transform:uppercase;letter-spacing:3px;margin-bottom:1.5rem}
+h1{font:900 2.4rem/1.2 var(--font-display);text-transform:uppercase;letter-spacing:3px;margin-bottom:1.2rem;min-height:2.9rem}
+h1 .scramble-char{color:var(--primary);opacity:.85;text-shadow:0 0 8px var(--primary-glow)}
+h1 .accent{color:var(--primary);text-shadow:0 0 12px var(--primary-glow),0 0 26px var(--primary-glow)}
+p{color:var(--text-muted);line-height:1.6;margin-bottom:2.5rem}
+.btn{display:inline-block;font:700 1rem var(--font-display);text-transform:uppercase;text-decoration:none;letter-spacing:2px;padding:1rem 2.5rem;border-radius:4px;transition:.3s;background:var(--primary);color:var(--bg-color);border:1px solid var(--primary);box-shadow:0 0 20px var(--primary-glow)}
+.btn:hover{background:transparent;color:var(--primary);transform:translateY(-3px)}
+footer{background:#090b0e;padding:2rem 10%;border-top:4px solid var(--primary);text-align:center;font:.9rem var(--font-display);color:var(--text-muted)}
+@keyframes float{50%{transform:translateY(-10px)}}
+@media(max-width:600px){h1{font-size:1.6rem;min-height:2rem}.card{padding:2.5rem 1.5rem}}
+@media(prefers-reduced-motion:reduce){.icon{animation:none}}
+</style>
+</head>
+<body>
+    <nav><a href="./" class="logo">ARCNICK <span>35849</span></a></nav>
+    <main>
+        <div class="card">
+            <div class="icon"><i class="fa-solid fa-rocket"></i></div>
+            <div><span class="badge">Join The Mission</span></div>
+            <h1 id="scramble-title">Message Received</h1>
+            <p>Thanks for reaching out to ARCNICK 35849! Your message is on its way to our team, and we'll get back to you soon.</p>
+            <a href="./#home" class="btn"><i class="fa-solid fa-arrow-left" style="margin-right:8px;"></i>Back to Base</a>
+        </div>
+    </main>
+    <footer>FTC Team 35849 &middot; No Limits.</footer>
+    <script>
+        // Same decode effect as the ARCNICK logo on the home page.
+        (function () {
+            const el = document.getElementById('scramble-title');
+            const words = ['Message', 'Received'];
+            const target = words.join(' ');
+            const chars = '!<>-_\\/[]{}—=+*^?#01ARCNICK$%&';
+            const esc = (c) => c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '&' ? '&amp;' : c;
+            const queue = [...target].map((ch) => ({ ch, end: 10 + Math.floor(Math.random() * 50), char: '' }));
+            const t0 = performance.now();
+            function update() {
+                const frame = (performance.now() - t0) / (1000 / 60);
+                let out = '';
+                let done = 0;
+                for (const q of queue) {
+                    if (q.ch === ' ' || frame >= q.end) {
+                        out += esc(q.ch);
+                        done++;
+                    } else {
+                        if (!q.char || Math.random() < 0.3) q.char = chars[Math.floor(Math.random() * chars.length)];
+                        out += `<span class="scramble-char">${esc(q.char)}</span>`;
+                    }
+                }
+                el.innerHTML = out;
+                if (done < queue.length) {
+                    requestAnimationFrame(update);
+                } else {
+                    el.innerHTML = `${words[0]} <span class="accent">${words[1]}</span>`;
+                }
+            }
+            update();
+        })();
+    </script>
+</body>
+</html>

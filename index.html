@@ -397,6 +397,13 @@
 /* Fixed launch control */
 #rocket-launch{position:fixed;right:1.5rem;bottom:1.5rem;width:3.75rem;height:3.75rem;border:1px solid var(--primary);border-radius:50%;background:rgba(20,10,10,.92);color:var(--primary);box-shadow:0 0 18px var(--primary-glow),inset 0 0 12px rgba(255,45,95,.15);display:grid;place-items:center;font-size:1.45rem;cursor:pointer;z-index:1100;transition:transform .25s,background .25s,color .25s}.rocket-label{position:absolute;right:calc(100% + .75rem);white-space:nowrap;font:700 .7rem var(--font-display);letter-spacing:1px;opacity:0;transform:translateX(.5rem);transition:.25s;color:var(--primary);pointer-events:none}.rocket-launch:hover .rocket-label,.rocket-launch:focus-visible .rocket-label{opacity:1;transform:none}.rocket-launch:hover{background:var(--primary);color:var(--bg-color);transform:translateY(-3px);box-shadow:0 0 28px var(--primary-glow)}#rocket-launch.blasting{animation:blast-off 1.2s cubic-bezier(.2,.8,.3,1) forwards}.rocket-flame{position:absolute;top:calc(100% - .3rem);left:50%;width:.7rem;height:1.4rem;transform:translateX(-50%);background:linear-gradient(#fff,#ffb000,#ff2d5f,transparent);clip-path:polygon(25% 0,75% 0,100% 45%,50% 100%,0 45%);opacity:0}.rocket-launch.blasting .rocket-flame{opacity:1;animation:flame .12s infinite alternate}.rocket-launch:focus-visible{outline:2px solid var(--text-main);outline-offset:4px}@keyframes blast-off{0%{transform:translateY(0);opacity:1}70%{transform:translateY(-55vh) scale(.8);opacity:1}100%{transform:translateY(-75vh) scale(.5);opacity:0}}@keyframes flame{to{height:2rem;filter:brightness(1.5)}}@keyframes pulse{50%{box-shadow:0 0 25px var(--primary-glow)}}
 @media(max-width:900px){h1{font-size:3.5rem}.nav-links{display:none}.showroom-container{grid-template-columns:1fr}section{padding:6rem 5% 2rem}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* Rocket button: page-wide scramble + rocket fly-up */
+#rocket-launch{opacity:0;visibility:hidden}#rocket-launch.show{opacity:1;visibility:visible}
+.rocket-flyer{position:fixed;left:50%;bottom:-6rem;z-index:1200;font-size:4rem;color:var(--primary);filter:drop-shadow(0 0 18px var(--primary-glow));pointer-events:none;animation:rocket-fly 1.6s cubic-bezier(.45,0,.2,1) forwards}
+.rocket-flyer i{display:block;transform:rotate(-45deg)}
+.rocket-flyer .rocket-flame{opacity:1;width:1.4rem;height:3rem;animation:flame .1s infinite alternate}
+@keyframes rocket-fly{0%{transform:translate(-50%,0)}100%{transform:translate(-50%,calc(-100vh - 12rem))}}
+.page-scramble-char{color:var(--primary);opacity:.85;text-shadow:0 0 8px var(--primary-glow)}
 /* ===== Sponsor logos beside the Join the Mission card ===== */
 .sponsor-layout{display:grid;grid-template-columns:1fr minmax(0,720px) 1fr;gap:32px;align-items:center;max-width:1400px;margin:0 auto}
 .sponsor-layout .contact-container{margin:0;width:100%;max-width:none}
@@ -551,7 +558,7 @@
     <input type="hidden" name="_subject" value="New Join The Mission message">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://arcnickftc.github.io/arcnick/#sponsor">
+    <input type="hidden" name="_next" value="https://arcnickftc.github.io/arcnick/thanks.html">
     <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
     <div class="form-group">
         <label for="name">Name / Company</label>
@@ -579,6 +586,12 @@
     <!-- Pixel Footbar -->
     <footer>
     </footer>
+    <!-- Back-to-top rocket: scrambles the text and launches a rocket -->
+    <button type="button" id="rocket-launch" class="rocket-launch" aria-label="Back to top">
+        <span class="rocket-label">BACK TO TOP</span>
+        <i class="fa-solid fa-rocket"></i>
+        <span class="rocket-flame"></span>
+    </button>
     <!-- ARCNICK Scramble/Decode Intro Effect -->
     <script>
         class TextScramble {
@@ -687,6 +700,107 @@
                 span.textContent = ev;
                 row.appendChild(span);
                 eventsList.appendChild(row);
+            });
+        })();
+    </script>
+    <!-- Rocket button logic -->
+    <script>
+        (function () {
+            const btn = document.getElementById('rocket-launch');
+            const chars = '!<>-_\\/[]{}—=+*^?#01ARCNICK$%&';
+            const esc = (c) => c === '<' ? '&lt;' : c === '>' ? '&gt;' : c === '&' ? '&amp;' : c;
+            const randomChar = () => chars[Math.floor(Math.random() * chars.length)];
+            let running = false;
+
+            function textNodes() {
+                const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+                    acceptNode(node) {
+                        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+                        if (node.parentElement.closest('script, style, noscript, textarea, #rocket-launch')) return NodeFilter.FILTER_REJECT;
+                        return NodeFilter.FILTER_ACCEPT;
+                    },
+                });
+                // Only text on screen now or at the top of the page; the rest can't be seen and would slow the animation.
+                const nodes = [];
+                const range = document.createRange();
+                while (walker.nextNode()) {
+                    range.selectNodeContents(walker.currentNode);
+                    const r = range.getBoundingClientRect();
+                    const onScreen = r.bottom > 0 && r.top < innerHeight;
+                    const atTop = r.top + scrollY < innerHeight;
+                    if (r.width && (onScreen || atTop)) nodes.push(walker.currentNode);
+                }
+                return nodes;
+            }
+
+            function launchRocket() {
+                const rocket = document.createElement('div');
+                rocket.className = 'rocket-flyer';
+                rocket.innerHTML = '<i class="fa-solid fa-rocket"></i><span class="rocket-flame"></span>';
+                document.body.appendChild(rocket);
+                rocket.addEventListener('animationend', () => rocket.remove());
+            }
+
+            function scramblePage() {
+                // Wrap each text node so it can be swapped for scrambled characters, then restored.
+                const items = textNodes().map((node) => {
+                    const wrap = document.createElement('span');
+                    node.replaceWith(wrap);
+                    const text = node.nodeValue;
+                    const queue = [...text].map((ch) => ({
+                        ch,
+                        start: Math.floor(Math.random() * 20),
+                        end: 55 + Math.floor(Math.random() * 45),
+                        char: '',
+                    }));
+                    return { node, wrap, queue, last: '' };
+                });
+                const total = 105;
+                const t0 = performance.now();
+                let frame = 0;
+                document.body.classList.add('page-scrambling');
+                return new Promise((resolve) => {
+                    function update() {
+                        for (const item of items) {
+                            const { wrap, queue } = item;
+                            let out = '';
+                            for (const q of queue) {
+                                if (/\s/.test(q.ch) || frame < q.start || frame >= q.end) {
+                                    out += esc(q.ch);
+                                } else {
+                                    if (!q.char || Math.random() < 0.3) q.char = randomChar();
+                                    out += `<span class="page-scramble-char">${esc(q.char)}</span>`;
+                                }
+                            }
+                            if (out !== item.last) wrap.innerHTML = item.last = out;
+                        }
+                        frame = (performance.now() - t0) / (1000 / 60);
+                        if (frame < total) {
+                            requestAnimationFrame(update);
+                        } else {
+                            for (const { node, wrap } of items) wrap.replaceWith(node);
+                            document.body.classList.remove('page-scrambling');
+                            resolve();
+                        }
+                    }
+                    update();
+                });
+            }
+
+            const toggleBtn = () => btn.classList.toggle('show', scrollY > 400 || running);
+            window.addEventListener('scroll', toggleBtn, { passive: true });
+            toggleBtn();
+
+            btn.addEventListener('click', async () => {
+                if (running) return;
+                running = true;
+                btn.classList.add('blasting');
+                launchRocket();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                await scramblePage();
+                btn.classList.remove('blasting');
+                running = false;
+                toggleBtn();
             });
         })();
     </script>
