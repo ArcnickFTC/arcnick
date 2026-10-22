@@ -388,24 +388,41 @@
 .rocket-flyer .rocket-flame{opacity:1;width:1.4rem;height:3rem;animation:flame .1s infinite alternate}
 @keyframes rocket-fly{0%{transform:translate(-50%,0)}100%{transform:translate(-50%,calc(-100vh - 12rem))}}
 .page-scramble-char{color:var(--primary);opacity:.85;text-shadow:0 0 8px var(--primary-glow)}
-/* ===== Sponsor logos beside the Join the Mission card ===== */
-.sponsor-layout{display:grid;grid-template-columns:1fr minmax(0,720px) 1fr;gap:32px;align-items:center;max-width:1400px;margin:0 auto}
-.sponsor-layout .contact-container{margin:0;width:100%;max-width:none}
-.sponsor-col{display:flex;flex-direction:column;gap:16px}
-.sponsor-col:first-child{align-items:flex-end}
-.sponsor-col:last-child{align-items:flex-start}
-.sponsor-tile{width:100%;max-width:200px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;padding:10px;transition:transform .2s,box-shadow .2s}
+/* ===== Sponsor logo bar in the footer ===== */
+.sponsor-bar-title{font:700 1.6rem var(--font-display);color:var(--text-main);text-transform:uppercase;letter-spacing:4px;margin-bottom:1.75rem}
+.sponsor-bar-title span,.sponsor-dialog-head h2 span{color:var(--primary)}
+.sponsor-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;max-width:1200px;margin:0 auto 2rem}
+.sponsor-tile{width:150px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;padding:10px;transition:transform .2s,box-shadow .2s}
 .sponsor-tile:hover{transform:translateY(-3px);box-shadow:0 6px 20px var(--primary-glow)}
-.sponsor-tile img{max-width:100%;max-height:100%;object-fit:contain}
+.sponsor-tile img,.sponsor-logo img{max-width:100%;max-height:100%;object-fit:contain}
 .bg-dark{background:#0a0a0a}
 .bg-black{background:#000}
 .bg-white{background:#fff}
 .bg-orange{background:#ee8b34}
+.sponsor-btn{background:transparent;color:var(--primary);border:1px solid var(--primary)}
+.sponsor-btn:hover{background:var(--primary);color:var(--bg-color);box-shadow:0 0 20px var(--primary-glow)}
+/* ===== "Meet Our Sponsors" popup ===== */
+.sponsor-dialog{width:min(960px,calc(100% - 2rem));max-height:85vh;margin:auto;padding:0;background:var(--card-bg);color:var(--text-main);border:1px solid var(--primary);border-radius:8px;box-shadow:0 0 40px var(--primary-glow)}
+.sponsor-dialog::backdrop{background:rgba(5,5,8,.8);backdrop-filter:blur(4px)}
+.sponsor-dialog-head{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 2rem;background:var(--card-bg);border-bottom:1px solid rgba(255,45,95,.2)}
+.sponsor-dialog-head h2{font:700 1.6rem var(--font-display);text-transform:uppercase;letter-spacing:3px}
+.sponsor-dialog-close{background:none;border:0;color:var(--text-muted);font-size:1.6rem;cursor:pointer;padding:.25rem .5rem}
+.sponsor-dialog-close:hover{color:var(--primary)}
+.sponsor-dialog-body{padding:1.5rem 2rem 2rem}
+.sponsor-dialog-intro{color:var(--text-muted);margin-bottom:1.5rem}
+.sponsor-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr));gap:1rem}
+.sponsor-card{display:flex;gap:1.25rem;align-items:center;padding:1rem;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:rgba(5,5,8,.5)}
+.sponsor-logo{flex:0 0 130px;aspect-ratio:16/9;border-radius:8px;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden}
+.sponsor-card h3{font:700 1.1rem var(--font-display);text-transform:uppercase;letter-spacing:1px;margin-bottom:.35rem}
+.sponsor-card p{color:var(--text-muted);font-size:1.05rem;line-height:1.4;margin-bottom:.5rem}
+.sponsor-card a{color:var(--primary);font:700 .8rem var(--font-display);text-transform:uppercase;letter-spacing:1px;text-decoration:none}
+.sponsor-card a:hover{text-shadow:0 0 8px var(--primary-glow)}
 @media(max-width:1000px){
-  .sponsor-layout{grid-template-columns:1fr}
-  .sponsor-layout>.contact-container{order:-1}
-  .sponsor-col{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:center}
   .sponsor-tile{width:140px}
+}
+@media(max-width:600px){
+  .sponsor-card{flex-direction:column;align-items:flex-start}
+  .sponsor-dialog-head,.sponsor-dialog-body{padding-left:1.25rem;padding-right:1.25rem}
 }
 </style>
 </head>
@@ -541,18 +558,12 @@
     <!-- Sponsor Contact Section -->
     <section id="sponsor">
         <h2 class="section-title">Join The Mission</h2>
-        <div class="sponsor-layout">
-    <div class="sponsor-col">
-        <a class="sponsor-tile bg-black" href="https://www.nvidia.com/" target="_blank" rel="noopener" aria-label="NVIDIA website"><img src="nvidia.png" alt="NVIDIA"></a>
-        <a class="sponsor-tile bg-orange" href="https://www.timken.com/" target="_blank" rel="noopener" aria-label="Timken website"><img src="timken.png" alt="Timken"></a>
-        <a class="sponsor-tile bg-white" href="https://www.bosch.us/" target="_blank" rel="noopener" aria-label="Bosch website"><img src="bosch.png" alt="Bosch"></a>
-    </div>
             <div class="contact-container">
 <form id="join-mission-form" action="https://formsubmit.co/arcnickftc@gmail.com" method="POST">
     <input type="hidden" name="_subject" value="New Join The Mission message">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://arcnickftc.github.io/arcnick/thanks.html">
+    <input type="hidden" name="_next" value="https://arcnickftc.github.io/thanks.html">
     <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
     <div class="form-group">
         <label for="name">Name / Company</label>
@@ -569,17 +580,96 @@
     <button type="submit" class="btn btn-primary" style="width: 100%; border: none;">Submit Message</button>
             </form>
         </div>
-                <div class="sponsor-col">
-        <a class="sponsor-tile bg-white" href="https://www.solidworks.com/" target="_blank" rel="noopener" aria-label="SolidWorks website"><img src="solidworks.png" alt="SolidWorks"></a>
-        <a class="sponsor-tile bg-white" href="https://www.jabil.com/" target="_blank" rel="noopener" aria-label="Jabil website"><img src="jabil.png" alt="Jabil"></a>
-        <a class="sponsor-tile bg-black" href="https://www.kjeliterealty.com/" target="_blank" rel="noopener" aria-label="KJ Elite Realty website"><img src="kj-elite-realty.png" alt="KJ Elite Realty"></a>
-        <a class="sponsor-tile bg-dark" href="https://mekongpalace.com/" target="_blank" rel="noopener" aria-label="Mekong Palace website"><img src="mekong-palace.png" alt="Mekong Palace"></a>
-    </div>
-</div>
     </section>
-    <!-- Pixel Footbar -->
-    <footer>
+    <!-- Pixel Footbar: sponsor logo bar -->
+    <footer id="our-sponsors">
+        <h2 class="sponsor-bar-title">Our <span>Sponsors</span></h2>
+        <div class="sponsor-bar">
+            <a class="sponsor-tile bg-black" href="https://www.nvidia.com/" target="_blank" rel="noopener" aria-label="NVIDIA website"><img src="nvidia.png" alt="NVIDIA"></a>
+            <a class="sponsor-tile bg-orange" href="https://www.timken.com/" target="_blank" rel="noopener" aria-label="Timken website"><img src="timken.png" alt="Timken"></a>
+            <a class="sponsor-tile bg-white" href="https://www.bosch.us/" target="_blank" rel="noopener" aria-label="Bosch website"><img src="bosch.png" alt="Bosch"></a>
+            <a class="sponsor-tile bg-white" href="https://www.solidworks.com/" target="_blank" rel="noopener" aria-label="SolidWorks website"><img src="solidworks.png" alt="SolidWorks"></a>
+            <a class="sponsor-tile bg-white" href="https://www.jabil.com/" target="_blank" rel="noopener" aria-label="Jabil website"><img src="jabil.png" alt="Jabil"></a>
+            <a class="sponsor-tile bg-black" href="https://www.kjeliterealty.com/" target="_blank" rel="noopener" aria-label="KJ Elite Realty website"><img src="kj-elite-realty.png" alt="KJ Elite Realty"></a>
+            <a class="sponsor-tile bg-dark" href="https://mekongpalace.com/" target="_blank" rel="noopener" aria-label="Mekong Palace website"><img src="mekong-palace.png" alt="Mekong Palace"></a>
+        </div>
+        <button type="button" id="open-sponsors" class="btn sponsor-btn"><i class="fa-solid fa-handshake" style="margin-right: 10px;"></i>Meet Our Sponsors</button>
     </footer>
+    <!-- Sponsors popup: a short summary of each sponsor -->
+    <dialog id="sponsor-dialog" class="sponsor-dialog" aria-labelledby="sponsor-dialog-title">
+        <div class="sponsor-dialog-head">
+            <h2 id="sponsor-dialog-title">Our <span>Sponsors</span></h2>
+            <button type="button" class="sponsor-dialog-close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="sponsor-dialog-body">
+            <p class="sponsor-dialog-intro">ARCNICK 35849 is powered by these partners. Thank you for helping us design, build, and compete.</p>
+            <ul class="sponsor-list">
+                <li class="sponsor-card">
+                    <div class="sponsor-logo bg-black"><img src="nvidia.png" alt="NVIDIA"></div>
+                    <div>
+                        <h3>NVIDIA</h3>
+                        <p>Santa Clara, California tech company behind GPUs and the accelerated computing that powers AI, graphics, and robotics.</p>
+                        <a href="https://www.nvidia.com/" target="_blank" rel="noopener">Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </li>
+                <li class="sponsor-card">
+                    <div class="sponsor-logo bg-orange"><img src="timken.png" alt="Timken"></div>
+                    <div>
+                        <h3>Timken</h3>
+                        <p>Ohio-based maker of engineered bearings and power transmission products, keeping heavy machinery moving since 1899.</p>
+                        <a href="https://www.timken.com/" target="_blank" rel="noopener">Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </li>
+                <li class="sponsor-card">
+                    <div class="sponsor-logo bg-white"><img src="bosch.png" alt="Bosch"></div>
+                    <div>
+                        <h3>Bosch</h3>
+                        <p>Global engineering and technology company working across mobility, industrial technology, energy and building tech, and consumer goods.</p>
+                        <a href="https://www.bosch.us/" target="_blank" rel="noopener">Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </li>
+                <li class="sponsor-card">
+                    <div class="sponsor-logo bg-white"><img src="solidworks.png" alt="SolidWorks"></div>
+                    <div>
+                        <h3>SolidWorks</h3>
+                        <p>Dassault Syst&egrave;mes' 3D CAD software, used by engineers and students to design and test parts before they are ever built.</p>
+                        <a href="https://www.solidworks.com/" target="_blank" rel="noopener">Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </li>
+                <li class="sponsor-card">
+                    <div class="sponsor-logo bg-white"><img src="jabil.png" alt="Jabil"></div>
+                    <div>
+                        <h3>Jabil</h3>
+                        <p>Global manufacturing solutions provider that helps companies design, engineer, and build products at scale.</p>
+                        <a href="https://www.jabil.com/" target="_blank" rel="noopener">Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </li>
+                <li class="sponsor-card">
+                    <div class="sponsor-logo bg-black"><img src="kj-elite-realty.png" alt="KJ Elite Realty"></div>
+                    <div>
+                        <h3>KJ Elite Realty</h3>
+                        <p>Queen Creek, Arizona real estate team helping buyers find homes and sellers price and market theirs.</p>
+                        <a href="https://www.kjeliterealty.com/" target="_blank" rel="noopener">Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </li>
+                <li class="sponsor-card">
+                    <div class="sponsor-logo bg-dark"><img src="mekong-palace.png" alt="Mekong Palace"></div>
+                    <div>
+                        <h3>Mekong Palace</h3>
+                        <p>Mesa, Arizona Chinese restaurant serving handmade dim sum, BBQ, seafood, and Cantonese dishes since 2010, plus catering and private dining.</p>
+                        <a href="https://mekongpalace.com/" target="_blank" rel="noopener">Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </dialog>
+    <script>
+        // Sponsors popup: the button opens it; the X, Esc, or a click outside closes it
+        const sponsorDialog = document.getElementById('sponsor-dialog');
+        document.getElementById('open-sponsors').addEventListener('click', () => sponsorDialog.showModal());
+        sponsorDialog.querySelector('.sponsor-dialog-close').addEventListener('click', () => sponsorDialog.close());
+        sponsorDialog.addEventListener('click', (e) => { if (e.target === sponsorDialog) sponsorDialog.close(); });
+    </script>
     <!-- Back-to-top rocket: scrambles the text and launches a rocket -->
     <button type="button" id="rocket-launch" class="rocket-launch" aria-label="Back to top">
         <span class="rocket-label">BACK TO TOP</span>
